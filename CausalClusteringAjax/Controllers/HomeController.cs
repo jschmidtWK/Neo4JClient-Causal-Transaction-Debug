@@ -80,7 +80,7 @@ namespace CausalClusteringAjax.Controllers
                 return Json(new { success = false, responseText = "Une erreur est survenue lors de la création du conducteur" });
             }
 
-            return Json(new { success = true, responseText = "OK", driverId = driver.Id.ToString(), isNew = isNewDriver });
+            return Json(new { success = true, responseText = "OK", driverId = "", isNew = false });
         }
     }
 }
