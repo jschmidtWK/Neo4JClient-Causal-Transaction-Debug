@@ -29,10 +29,10 @@ namespace Library.Data
             return GetGraphClient().BeginTransaction(scopeOption);
         }
 
-        public static void Connect()
+        public static bool Connect()
         {
             cachedGraphClient = null;
-            GetGraphClient();
+            return GetGraphClient().IsConnected;
         }
 
         static BoltGraphClient GetGraphClient()
@@ -58,7 +58,7 @@ namespace Library.Data
                 }
                 catch
                 {
-                    if (counter++ == 10)
+                    if (counter++ > 10)
                     {
                         break;
                     }
