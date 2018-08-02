@@ -2,28 +2,29 @@
     ViewBag.Title = "Home Page";
 }
 
-<form method="post" action="/Home/Edit">
+<form method="post" action="/Driver/Edit">
     <div class="input-field col s12">
-        <input maxlength="15" value="" id="companyidentifier" type="text" class="validate" name="Driver.CompanyIdentifier" />
+        <input maxlength="15" value="" id="companyidentifier" type="text" class="validate" name="CompanyIdentifier" />
         <label for="companyidentifier">* Company identifier</label>
     </div>
     <div class="input-field col s12">
-        <input value="" id="d-lastname" type="text" class="validate" name="Driver.LastName" maxlength="30" required="required" />
+        <input value="" id="d-lastname" type="text" class="validate" name="LastName" maxlength="30" required="required" />
         <label data-error="Veuillez renseigner un nom" for="d-lastname">* lastname</label>
     </div>
     <div class="input-field col s12">
-        <input value="" id="d-firstname" type="text" class="validate" name="Driver.FirstName" maxlength="30" required="required" />
+        <input value="" id="d-firstname" type="text" class="validate" name="FirstName" maxlength="30" required="required" />
         <label for="d-firstname">* firstname</label>
-    </div>
-    <div class="input-field col s12">
-        <button name="save-btn" id="save-btn">Save Ajax</button>
     </div>
     <div class="input-field col s12">
         <input type="submit" name="save" value="Save Sync" />
     </div>
+    <input type="hidden" name="Id" value="" />
 </form>
+<div class="input-field col s12">
+    <button name="save-btn" id="save-btn">Save Ajax</button>
+</div>
 <script>
     $(function () {
-
+        initSaveButton();
     });
 </script>

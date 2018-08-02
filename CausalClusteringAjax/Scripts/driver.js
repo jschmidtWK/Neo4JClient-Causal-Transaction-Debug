@@ -2,13 +2,13 @@
     $("#save-btn").bind({
         "click": function () {
             var id = $(this).attr("id") || '';
-            var companyIdentifier = $("#driver-edit-" + id + " input[name=\"Driver.CompanyIdentifier\"]").val() || '';
-            var lastname = $("#driver-edit-" + id + " input[name=\"Driver.LastName\"]").val();
-            var firstName = $("#driver-edit-" + id + " input[name=\"Driver.FirstName\"]").val();
-            var birthdate = $("#driver-edit-" + id + " input[name=\"Driver.Birthdate\"]").val() || '';
+            var companyIdentifier = $("input[name=\"CompanyIdentifier\"]").val() || '';
+            var lastname = $("input[name=\"LastName\"]").val();
+            var firstName = $("input[name=\"FirstName\"]").val();
+            var birthdate = $("input[name=\"Birthdate\"]").val() || '';
             $.ajax({
                 method: "POST",
-                url: "/drivers/edit",
+                url: "/Driver/edit",
                 data: {
                     id: id,
                     companyIdentifier: companyIdentifier,
@@ -18,7 +18,7 @@
                 },
                 success: function (data) {
                 }
-            }
-                    }
+            });
+        }
     });
 }
