@@ -19,10 +19,20 @@ namespace Library.Data
         static int numberOfRetry = 5;
 
         static BoltGraphClient cachedGraphClient;
+        public static string neo4jIP = "127.0.0.1";
+        public static string neo4jPort = "7687";
+        public static string neo4jLogin = "neo4j";
+        public static string neo4jPassword = "neo4j";
 
         public static ITransaction BeginTransaction(TransactionScopeOption scopeOption = TransactionScopeOption.Join)
         {
             return GetGraphClient().BeginTransaction(scopeOption);
+        }
+
+        public static void Connect()
+        {
+            cachedGraphClient = null;
+            GetGraphClient();
         }
 
         static BoltGraphClient GetGraphClient()
@@ -36,9 +46,9 @@ namespace Library.Data
 
         static BoltGraphClient CoreGetGraphClient()
         {
-            Uri uri = new Uri("");
+            Uri uri = new Uri($"bolt+routing://{neo4jIP}:{neo4jPort}");
 
-            BoltGraphClient client = new BoltGraphClient(uri, "", "");
+            BoltGraphClient client = new BoltGraphClient(uri, neo4jLogin, neo4jPassword);
             int counter = 0;
             while (!client.IsConnected)
             {
