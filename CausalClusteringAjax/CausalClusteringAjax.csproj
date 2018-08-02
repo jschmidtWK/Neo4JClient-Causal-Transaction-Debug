@@ -171,6 +171,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccess\DataObjectImpl.cs" />
     <Compile Include="DataAccess\Driver.cs" />
+    <Compile Include="DataAccess\Finder.cs" />
     <Compile Include="DataAccess\IDataObject.cs" />
     <Compile Include="DataAccess\NeoStore.cs" />
     <Compile Include="Global.asax.cs">
