@@ -1,24 +1,44 @@
-﻿@{
+﻿@model Library.Neo4J.Driver
+@{
     ViewBag.Title = "Home Page";
 }
 
 <form method="post" action="/Driver/Edit">
+
     <div class="input-field col s12">
-        <input maxlength="15" value="" id="companyidentifier" type="text" class="validate" name="CompanyIdentifier" />
-        <label for="companyidentifier">* Company identifier</label>
+        <input type="text" id="neoUrl" name="neoUrl" />
+        <label for="neoUrl">Url for the Neo4J Server</label>
     </div>
     <div class="input-field col s12">
-        <input value="" id="d-lastname" type="text" class="validate" name="LastName" maxlength="30" required="required" />
-        <label data-error="Veuillez renseigner un nom" for="d-lastname">* lastname</label>
+        <input type="text" id="neoPort" name="neoPort" />
+        <label for="neoPort">Port for the Neo4J Server</label>
     </div>
     <div class="input-field col s12">
-        <input value="" id="d-firstname" type="text" class="validate" name="FirstName" maxlength="30" required="required" />
-        <label for="d-firstname">* firstname</label>
+        <input type="text" id="neoUser" name="neoUser" />
+        <label for="neoUser">User name for Neo4J</label>
+    </div>
+    <div class="input-field col s12">
+        <input type="password" id="neoPassword" name="neoPassword" />
+        <label for="neoPassword">password for Neo4J</label>
+    </div>
+
+
+    <div class="input-field col s12">
+        @Html.TextBoxFor(m => m.Firstname)
+        @Html.LabelFor(m => m.Firstname)
+    </div>
+    <div class="input-field col s12">
+        @Html.TextBoxFor(m => m.Lastname)
+        @Html.LabelFor(m => m.Lastname)
+    </div>
+    <div class="input-field col s12">
+        @Html.TextBoxFor(m => m.CompanyIdentifier)
+        @Html.LabelFor(m => m.CompanyIdentifier)
     </div>
     <div class="input-field col s12">
         <input type="submit" name="save" value="Save Sync" />
     </div>
-    <input type="hidden" name="Id" value="" />
+    @Html.HiddenFor(m => m.Id)
 </form>
 <div class="input-field col s12">
     <button name="save-btn" id="save-btn">Save Ajax</button>

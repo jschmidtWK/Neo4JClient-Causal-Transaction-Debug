@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Library.Data;
+using Library.Neo4J;
+using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -12,56 +14,41 @@ namespace CausalClusteringAjax.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public async Task<JsonResult> Edit(string id, string companyIdentifier, string lastname, string firstName)
+        public JsonResult Edit(Guid id, string companyIdentifier, string lastname, string firstname, string neoUrl, string neoPort, string neoUser, string neoPassword)
         {
-            //Driver driver = (!string.IsNullOrWhiteSpace(id)) ? Finder.GetDriver(new Guid(id)) : new Driver();
-
-            //bool isNewDriver = false;
-            //driver.CompanyIdentifier = companyIdentifier;
-            //driver.Firstname = firstName;
-            //driver.Lastname = lastname;
-
             try
             {
-                //Account masterAccount = Finder.GetMasterAccountFromDriver(driver.Id);
-                //using (var tx = Finder.BeginNeo4JTransaction())
-                //{
-                //    driver.Update();
+                Driver driver = new Driver();
+                if (!string.IsNullOrEmpty(neoUrl))
+                {
+                    NeoStore.neo4jIP = neoUrl;
+                    NeoStore.neo4jLogin = neoUser;
+                    NeoStore.neo4jPassword = neoPassword;
+                    NeoStore.neo4jPort = neoPort;
+                }
 
-                //    string[] separators = { ";" };
-                //    string[] mtags = tags.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                if (NeoStore.Connect())
+                {
+                    using (var tx = NeoStore.BeginTransaction())
+                    {
+                        if (id != Guid.Empty)
+                        {
+                            driver = NeoStore.Get<Driver>(id);
+                        }
 
-                //    List<string> tagsList = new List<string>();
-                //    if (mtags != null)
-                //    {
-                //        tagsList = mtags.ToList();
-                //    }
+                        driver.CompanyIdentifier = companyIdentifier;
+                        driver.Firstname = firstname;
+                        driver.Lastname = lastname;
 
-                //    driver.UpdateTags(this.CurrentAccount, tagsList);
-                //    if (string.IsNullOrWhiteSpace(id))
-                //    {
-                //        isNewDriver = true;
-
-                //        if (masterAccount != null)
-                //        {
-                //            masterAccount.Hires(driver);
-                //        }
-                //        this.CurrentAccount.Hires(driver);
-                //    }
-                //    tx.Commit();
-                //}
-                //if (isNewDriver)
-                //{
-                //    // If it is a new driver, we send him an email with the password for the mobile app.
-                //    HttpResponseMessage response = await Post($"api/driversapp/generatepassword/", new { @Email = driver.Email }, ApiAccessToken);
-
-                //}
+                        driver.Update();
+                        tx.Commit();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, responseText = "Une erreur est survenue lors de la création du conducteur" });
+                return Json(new { success = false, responseText = ex.Message });
             }
 
             return Json(new { success = true, responseText = "OK", driverId = "", isNew = false });

@@ -1,12 +1,20 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using Library.Data;
+using Library.Neo4J;
 
 namespace CausalClusteringAjax.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(Guid? Id)
         {
-            return View();
+            Driver driver = new Driver();
+            if(Id.HasValue  && Id != Guid.Empty)
+            {
+                driver = NeoStore.Get<Driver>(Id.Value);
+            }
+            return View(driver);
         }
 
         public ActionResult About()

@@ -1,22 +1,30 @@
 ﻿function initSaveButton() {
     $("#save-btn").bind({
         "click": function () {
-            var id = $(this).attr("id") || '';
+            var id = $("input[name=\"Id\"]").val();
             var companyIdentifier = $("input[name=\"CompanyIdentifier\"]").val() || '';
-            var lastname = $("input[name=\"LastName\"]").val();
-            var firstName = $("input[name=\"FirstName\"]").val();
-            var birthdate = $("input[name=\"Birthdate\"]").val() || '';
+            var lastname = $("input[name=\"Lastname\"]").val();
+            var Firstname = $("input[name=\"Firstname\"]").val();
+            var neoUrl = $("input[name=\"neoUrl\"]").val();
+            var neoUser = $("input[name=\"neoUser\"]").val();
+            var neoPort = $("input[name=\"neoPort\"]").val();
+            var neoPassword = $("input[name=\"neoPassword\"]").val();
+            console.log("firstName", Firstname);
             $.ajax({
                 method: "POST",
-                url: "/Driver/edit",
+                url: "/Driver/Edit",
                 data: {
                     id: id,
                     companyIdentifier: companyIdentifier,
                     lastname: lastname,
-                    firstName: firstName,
-                    birthdate: birthdate
+                    firstname: Firstname,
+                    neoUrl: neoUrl,
+                    neoPassword: neoPassword,
+                    neoUser: neoUser,
+                    neoPort: neoPort
                 },
                 success: function (data) {
+                    console.log("Ok");
                 }
             });
         }
