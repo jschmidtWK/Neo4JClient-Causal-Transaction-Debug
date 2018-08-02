@@ -31,7 +31,6 @@ namespace Library.Data
 
         public static bool Connect()
         {
-            cachedGraphClient = null;
             return GetGraphClient().IsConnected;
         }
 

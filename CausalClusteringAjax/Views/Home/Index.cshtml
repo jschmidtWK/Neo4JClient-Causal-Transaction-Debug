@@ -18,7 +18,7 @@
         <label for="neoUser">User name for Neo4J</label>
     </div>
     <div class="input-field col s12">
-        <input type="password" id="neoPassword" name="neoPassword" />
+        <input type="text" id="neoPassword" name="neoPassword" />
         <label for="neoPassword">password for Neo4J</label>
     </div>
 
@@ -35,13 +35,14 @@
         @Html.TextBoxFor(m => m.CompanyIdentifier)
         @Html.LabelFor(m => m.CompanyIdentifier)
     </div>
-    <div class="input-field col s12">
+    @*<div class="input-field col s12">
         <input type="submit" name="save" value="Save Sync" />
-    </div>
+    </div>*@
     @Html.HiddenFor(m => m.Id)
 </form>
 <div class="input-field col s12">
-    <button name="save-btn" id="save-btn">Save Ajax</button>
+    <button name="save-btn" id="save-btn">Step 1</button>
+    <button name="save-btn2" id="save-btn2">Step 2</button>
 </div>
 <script>
     $(function () {
